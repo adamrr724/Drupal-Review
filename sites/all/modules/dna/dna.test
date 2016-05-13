@@ -1,7 +1,7 @@
 <?php
 
 
-class DnaTestCase extends DrupalUnitTestCase
+class UnitDnaTestCase extends DrupalUnitTestCase
 {
 
     public static function getInfo() {
@@ -12,48 +12,59 @@ class DnaTestCase extends DrupalUnitTestCase
         );
     }
 
-    function testDnaCombination()
+    function testDna()
     {
-        $description = 'The page should return one DNA sequence';
-
+        $description = 'The page should return one DNA sequence.';
         // Arrange
         $input = "A";
-
         // Act
         $result = dna_combination($input);
-
         // Assert
-        $expected_output = 'T';
-        $this->assertEquals($result, $expected_output, $description);
-    }
+        $expected_output = "T";
+        $this->assertEqual($result, $expected_output, $description);
 
-    function testDnaCombinationTwo()
-    {
+
         $description = 'The page should return 2 DNA sequences';
-
         // Arrange
         $input = "TA";
-
         // Act
         $result = dna_combination($input);
-
         // Assert
-        $expected_output = 'TA';
+        $expected_output = 'AT';
         $this->assertEqual($result, $expected_output, $description);
-    }
 
-    function testDnaCombinationUpper()
-    {
         $description = 'The page should return the results in upper case.';
-
         // Arrange
         $input = "at";
-
         // Act
         $result = dna_combination($input);
-
         // Assert
         $expected_output = 'TA';
         $this->assertEqual($result, $expected_output, $description);
     }
 }
+
+class DnaTestCase extends DrupalWebTestCase
+{
+
+    public static function getInfo() {
+        return array(
+            'name' => 'Fuctional DNA Tests',
+            'description' => 'Tests for the DNA module.',
+            'group' => 'DNA Tests',
+        );
+    }
+
+
+    public function setUp() {
+       parent::setUp(array('dna'));
+    }
+
+    public function testDnaCombination() {
+
+        $edit = array();
+        $edit['input'] = 'tag';
+
+        $this->drupalPost('/DNA', $edit, t('Complete Sequence'));
+        $this->assertText(t('ATCGT'), t('Test passes! Hooray!'));
+    }
