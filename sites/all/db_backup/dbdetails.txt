@@ -1,0 +1,4 @@
+db name: code-review
+
+username: code-review
+pw: code-review
