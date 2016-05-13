@@ -14,16 +14,46 @@ class DnaTestCase extends DrupalUnitTestCase
 
     function testDnaCombination()
     {
-        $description = 'The page should display a result';
+        $description = 'The page should return one DNA sequence';
 
         // Arrange
-        $input = "hello";
+        $input = "A";
 
         // Act
         $result = dna_combination($input);
 
         // Assert
-        $expected_output = 'hello';
+        $expected_output = 'T';
+        $this->assertEquals($result, $expected_output, $description);
+    }
+
+    function testDnaCombinationTwo()
+    {
+        $description = 'The page should return 2 DNA sequences';
+
+        // Arrange
+        $input = "TA";
+
+        // Act
+        $result = dna_combination($input);
+
+        // Assert
+        $expected_output = 'TA';
+        $this->assertEqual($result, $expected_output, $description);
+    }
+
+    function testDnaCombinationUpper()
+    {
+        $description = 'The page should return the results in upper case.';
+
+        // Arrange
+        $input = "at";
+
+        // Act
+        $result = dna_combination($input);
+
+        // Assert
+        $expected_output = 'TA';
         $this->assertEqual($result, $expected_output, $description);
     }
 }

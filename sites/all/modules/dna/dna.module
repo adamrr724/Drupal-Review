@@ -42,10 +42,26 @@
     }
 
     function dna_combination($input) {
-        return $input;
+        $exploded_input = str_split(strtoupper($input));
+
+        $results = array();
+        for ($i = 0; $i < count($exploded_input); $i++) {
+            if ($exploded_input[$i] === "A") {
+                array_push($results, "T");
+            } else if ($exploded_input[$i] === "T") {
+                array_push($results, "A");
+            } else if ($exploded_input[$i] === "C") {
+                array_push($results, "G");
+            } else if ($exploded_input[$i] === "G") {
+                array_push($results, "C");
+            }
+        }
+
+        return implode("", $results);
     }
+
 
     function dna_display() {
         $result = $_SESSION['result'];
         return $result;
-    } 
+    }
