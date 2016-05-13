@@ -24,6 +24,8 @@
             '#title' => 'DNA Input',
             '#type' => 'textfield',
             '#description' => t('Please input the beginning of a DNA helix combination. The letters have to be a combination of A, T, C, and G.'),
+            '#element_validate' => array('element_validate_inputs'),
+            '#required' => TRUE,
         );
 
         $form['submit'] = array(
@@ -32,6 +34,12 @@
         );
 
         return $form;
+    }
+
+    function element_validate_inputs($element) {
+        if (preg_match('/[^a,t,g,c]/', $element['#value'])) {
+            form_error($element, t('Sequence must contain the letters A, T, G, or C.'));
+        }
     }
 
     function dna_form_submit($form, &$form_state) {
