@@ -1,5 +1,30 @@
 <?php
 
+class DnaTestCase extends DrupalWebTestCase
+{
+
+    public static function getInfo() {
+        return array(
+            'name' => 'Functional DNA Tests',
+            'description' => 'Tests for the DNA module.',
+            'group' => 'DNA Tests',
+        );
+    }
+
+
+    public function setUp() {
+       parent::setUp(array('dna'));
+    }
+
+    public function testDnaCombination() {
+
+        $edit = array();
+        $edit['dna_input'] = 'tag';
+
+        $this->drupalPost('/dna_create', $edit, t('Get Combination'));
+        $this->assertText(t('ATC'), t('DNA combination complete.'));
+    }
+}
 
 class UnitDnaTestCase extends DrupalUnitTestCase
 {
@@ -41,31 +66,5 @@ class UnitDnaTestCase extends DrupalUnitTestCase
         // Assert
         $expected_output = 'TA';
         $this->assertEqual($result, $expected_output, $description);
-    }
-}
-
-class DnaTestCase extends DrupalWebTestCase
-{
-
-    public static function getInfo() {
-        return array(
-            'name' => 'Fuctional DNA Tests',
-            'description' => 'Tests for the DNA module.',
-            'group' => 'DNA Tests',
-        );
-    }
-
-
-    public function setUp() {
-       parent::setUp(array('dna'));
-    }
-
-    public function testDnaCombination() {
-
-        $edit = array();
-        $edit['input'] = 'tag';
-
-        $this->drupalPost('/dna', $edit, t('DNA combination'));
-        $this->assertText(t('ATC'), t('DNA combination complete.'));
     }
 }
