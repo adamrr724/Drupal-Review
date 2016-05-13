@@ -48,4 +48,4 @@
     function dna_display() {
         $result = $_SESSION['result'];
         return $result;
-    }
+    } 
