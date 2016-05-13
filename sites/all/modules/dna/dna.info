@@ -1,0 +1,7 @@
+name = DNA module
+description = Enter in half of a DNA helox code, and it will print out both sides in return.
+package = Custom Modules
+core = 7.x
+files[] = dna.module
+files[] = dna.test
+dependencies[] = simpletest

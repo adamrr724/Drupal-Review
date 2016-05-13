@@ -1,0 +1,51 @@
+<?php
+
+    function dna_menu() {
+        $items['dna_create'] = array(
+            'title' => 'DNA helix combination',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('dna_form'),
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+
+        $items['dna_success'] = array(
+            'title' => 'Results',
+            'page callback' => 'dna_display',
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+
+        return $items;
+    }
+
+    function dna_form() {
+        $form['dna_input'] = array(
+            '#title' => 'DNA Input',
+            '#type' => 'textfield',
+            '#description' => t('Please input the beginning of a DNA helix combination. The letters have to be a combination of A, T, C, and G.'),
+        );
+
+        $form['submit'] = array(
+            '#type' => 'submit',
+            '#value' => 'Get Combination',
+        );
+
+        return $form;
+    }
+
+    function dna_form_submit($form, &$form_state) {
+        $input = $form_state['values']['dna_input'];
+        $result = dna_combination($input);
+        $_SESSION['result'] = $result;
+        $form_state['redirect'] = 'dna_success';
+    }
+
+    function dna_combination($input) {
+        return $input;
+    }
+
+    function dna_display() {
+        $result = $_SESSION['result'];
+        return $result;
+    }
