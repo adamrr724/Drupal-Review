@@ -65,6 +65,7 @@ class DnaTestCase extends DrupalWebTestCase
         $edit = array();
         $edit['input'] = 'tag';
 
-        $this->drupalPost('/DNA', $edit, t('Complete Sequence'));
-        $this->assertText(t('ATCGT'), t('Test passes! Hooray!'));
+        $this->drupalPost('/dna', $edit, t('DNA combination'));
+        $this->assertText(t('ATC'), t('DNA combination complete.'));
     }
+}
